@@ -7,17 +7,17 @@ const formatAmountForStripe = (amount, currency) => {
     return Math.round(amount * 100);
 }
 
-export default async function GET(req){
-    const searchParams = req.nextUrl.searchParams()
-    const session_id = searchParams.get('session_id')
-    try {
-        const checkoutSession = await stripe.checkout.sessions.retrieve(session_id)
-        return NextResponse.json(checkoutSession)
-    } catch(err){
-        console.err("Error retrieving checkout session" + err)
-        return NextResponse.json({error: {message: err.message}}, {status: 500})
-    }
-}
+// export default async function GET(req){
+//     const searchParams = req.nextUrl.searchParams()
+//     const session_id = searchParams.get('session_id')
+//     try {
+//         const checkoutSession = await stripe.checkout.sessions.retrieve(session_id)
+//         return NextResponse.json(checkoutSession)
+//     } catch(err){
+//         console.err("Error retrieving checkout session" + err)
+//         return NextResponse.json({error: {message: err.message}}, {status: 500})
+//     }
+// }
 
 export async function POST(req) {
     try {
