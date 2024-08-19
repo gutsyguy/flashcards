@@ -10,32 +10,68 @@ import Link from "next/link";
 
 export default function Home() {
 
-  const HandleSubmit = async () =>{
-    const checkoutSection = await fetch('/api/checkout-session', {
-      method: "POST",
-      headers: {
-        origin: 'https://localhost:3000'
-      }
-    })
+  // const HandleSubmit = async () =>{
+  //   const checkoutSection = await fetch('/api/checkout-session', {
+  //     method: "POST",
+  //     headers: {
+  //       origin: 'https://localhost:3000'
+  //     }
+  //   })
 
-    const checkoutSectionJson = await checkoutSection.json()
+  //   const checkoutSectionJson = await checkoutSection.json()
 
-    if (checkoutSection.status === 500){
-      console.error(checkoutSection.message)
-      return
+  //   if (checkoutSection.status === 500){
+  //     console.error(checkoutSection.message)
+  //     return
+  //   }
+
+  //   const stripe = await getStripe()
+  //   const {error} = await stripe.redirectToCheckout({
+  //     sessionId: checkoutSectionJson.id
+  //   })
+
+  //   if (error){
+  //     console.warn(error.message)
+  //   }
+
+
+  // }
+
+  const HandleSubmit = async () => {
+    try {
+        const checkoutSection = await fetch('/api/checkout-session', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ message: "Some message" }),
+        });
+
+        if (!checkoutSection.ok) {
+            const error = await checkoutSection.json();
+            console.error("Error creating checkout session:", error.message);
+            return;
+        }
+
+        const checkoutSectionJson = await checkoutSection.json();
+
+        if (!checkoutSectionJson.id) {
+            console.error("Session ID is null or undefined.");
+            return;
+        }
+
+        const stripe = await getStripe();
+        const { error } = await stripe.redirectToCheckout({
+            sessionId: checkoutSectionJson.id
+        });
+
+        if (error) {
+            console.warn(error.message);
+        }
+    } catch (error) {
+        console.error("HandleSubmit encountered an error:", error);
     }
-
-    const stripe = await getStripe()
-    const {error} = await stripe.redirectToCheckout({
-      sessionId: checkoutSectionJson.id
-    })
-
-    if (error){
-      console.warn(error.message)
-    }
-
-
-  }
+};
 
 
   return (
