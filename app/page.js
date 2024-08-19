@@ -67,7 +67,7 @@ export default function Home() {
           my: 4
         }}>
           <Typography variant="h2" gutterBottom>Welcome to flashcard SAAS</Typography>
-          <Typography variant="h5" gutterBottom>{'  '} "The easiest way to make flashcards from text</Typography>
+          <Typography variant="h5" gutterBottom>{'  '} The easiest way to make flashcards from text</Typography>
           <Link href = "/generate">
             <Button variant="contained" color="primary" sx={{mt: 2}}>Get Started</Button>
           </Link>
