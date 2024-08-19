@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { v4 as uuidv4 } from 'uuid';  // Importing UUID for unique ID generation
 
 // Define the system prompt for the AI
 const systemPrompt = `You are a flash-card creator, Your job is to generate concise and effective flashcards based on a given topic or content. Follow these rules:
@@ -26,6 +27,8 @@ Return in the following JSON format:
         }
     ]
 }`;
+
+
 export async function POST(req) {
     try {
         const { message } = await req.json();
@@ -42,19 +45,26 @@ export async function POST(req) {
 
         const result = await model.generateContent(`${systemPrompt} ${message}`);
 
-        if (!result.response) {
-            throw new Error("The AI service did not return a response.");
-        }
-
+        // Attempt to get the text response
         let responseText = await result.response.text();
+
+        // Debugging: Log the responseText
+        console.log("Response from AI service:", responseText);
+
+        // Check if the response is HTML (indicating an error page)
+        if (responseText.startsWith('<')) {
+            throw new Error("Received an HTML response from the AI service, indicating an error.");
+        }
 
         // Strip out any code block formatting (backticks)
         responseText = responseText.replace(/```json/g, '').replace(/```/g, '');
 
+        // Try parsing the response as JSON
         let flashcards;
         try {
             flashcards = JSON.parse(responseText);
         } catch (parseError) {
+            // If parsing fails, return the raw response or handle it as needed
             console.error("Failed to parse response as JSON:", parseError);
             return NextResponse.json({
                 error: "The AI service returned an unexpected format. Please try again.",
@@ -62,10 +72,13 @@ export async function POST(req) {
             }, { status: 500 });
         }
 
-        if (!flashcards.flashcards) {
-            throw new Error("The parsed response does not contain flashcards.");
-        }
+        // Assign a unique ID to each flashcard
+        flashcards.flashcards = flashcards.flashcards.map(flashcard => ({
+            ...flashcard,
+            id: uuidv4()  // Generate a unique ID for each flashcard
+        }));
 
+        // Return the flashcards as JSON if the response was parsed successfully
         return NextResponse.json(flashcards.flashcards);
 
     } catch (error) {
@@ -73,4 +86,3 @@ export async function POST(req) {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }
-
