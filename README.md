@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Flashcard SaaS
 
-## Getting Started
+A modern, full-stack web application that leverages AI to help users generate, store, and study flashcards from any text. Built with Next.js, Firebase, Clerk authentication, Stripe payments, and Google Generative AI.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **AI-Powered Flashcard Generation:**  
+  Users can input any text, and the app uses Google Generative AI to break it down into concise, effective flashcards.
+
+- **User Authentication:**  
+  Secure sign-up and sign-in flows powered by Clerk.
+
+- **Personal Flashcard Storage:**  
+  Each user's flashcards are stored in Firebase Firestore, ensuring privacy and accessibility from any device.
+
+- **Interactive Study Experience:**  
+  Flip through flashcards, track your progress, and focus on key concepts.
+
+- **SaaS Subscription Model:**  
+  Integrated Stripe payments for Basic and Pro plans, demonstrating real-world monetization and checkout flows.
+
+- **Responsive UI:**  
+  Built with React and Material UI for a seamless experience on any device.
+
+## 🛠️ Tech Stack
+
+- **Frontend:** Next.js 14, React 18, Material UI
+- **Backend/API:** Next.js API routes
+- **Authentication:** Clerk
+- **Database:** Firebase Firestore
+- **Payments:** Stripe
+- **AI Integration:** Google Generative AI (Gemini)
+- **Analytics:** Vercel Analytics
+
+## 📚 What I Learned
+
+- Building and deploying a full-stack SaaS product from scratch
+- Integrating third-party APIs (Stripe, Clerk, Google AI)
+- Managing authentication and user data securely
+- Designing responsive, user-friendly interfaces with Material UI
+- Handling asynchronous operations and error states in React
+- Structuring a scalable Next.js project
+
+## 🏗️ Project Structure
+
+```
+/app
+  /api           # API routes (AI, Stripe)
+  /flashcards    # Flashcard viewing
+  /generate      # Flashcard generation
+  /sign-in, /sign-up
+/firebase.js     # Firebase config
+/utils           # Utility functions (Stripe)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🧑‍💻 Getting Started
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+1. **Clone the repo:**  
+   `git clone https://github.com/yourusername/flashcard-saas.git`
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+2. **Install dependencies:**  
+   `npm install`
 
-## Learn More
+3. **Set up environment variables:**
 
-To learn more about Next.js, take a look at the following resources:
+   - Firebase config
+   - Clerk keys
+   - Stripe keys
+   - Google Generative AI key
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. **Run locally:**  
+   `npm run dev`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+5. **Open:**  
+   [http://localhost:3000](http://localhost:3000)
 
-## Deploy on Vercel
+## 💡 Why This Project?
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project demonstrates my ability to build production-ready, scalable web applications using the latest technologies. It showcases my skills in full-stack development, cloud integration, authentication, payments, and AI—all essential for modern software engineering roles.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+---
+
+Let me know if you'd like to further tailor this for a specific internship or add a personal statement!
