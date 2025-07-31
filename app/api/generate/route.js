@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { v4 as uuidv4 } from 'uuid';  // Importing UUID for unique ID generation
+import { v4 as uuidv4 } from "uuid";
 
-// Define the system prompt for the AI
 const systemPrompt = `You are a flash-card creator, Your job is to generate concise and effective flashcards based on a given topic or content. Follow these rules:
 
 1. Create concise questions for the front of the flashcard.
@@ -28,61 +27,58 @@ Return in the following JSON format:
     ]
 }`;
 
-
 export async function POST(req) {
-    try {
-        const { message } = await req.json();
+  try {
+    const { message } = await req.json();
 
-        if (!message) {
-            return NextResponse.json(
-                { error: "Message is required in the request body." },
-                { status: 400 }
-            );
-        }
-
-        const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
-        const result = await model.generateContent(`${systemPrompt} ${message}`);
-
-        // Attempt to get the text response
-        let responseText = await result.response.text();
-
-        // Debugging: Log the responseText
-        console.log("Response from AI service:", responseText);
-
-        // Check if the response is HTML (indicating an error page)
-        if (responseText.startsWith('<')) {
-            throw new Error("Received an HTML response from the AI service, indicating an error.");
-        }
-
-        // Strip out any code block formatting (backticks)
-        responseText = responseText.replace(/```json/g, '').replace(/```/g, '');
-
-        // Try parsing the response as JSON
-        let flashcards;
-        try {
-            flashcards = JSON.parse(responseText);
-        } catch (parseError) {
-            // If parsing fails, return the raw response or handle it as needed
-            console.error("Failed to parse response as JSON:", parseError);
-            return NextResponse.json({
-                error: "The AI service returned an unexpected format. Please try again.",
-                rawResponse: responseText
-            }, { status: 500 });
-        }
-
-        // Assign a unique ID to each flashcard
-        flashcards.flashcards = flashcards.flashcards.map(flashcard => ({
-            ...flashcard,
-            id: uuidv4()  // Generate a unique ID for each flashcard
-        }));
-
-        // Return the flashcards as JSON if the response was parsed successfully
-        return NextResponse.json(flashcards.flashcards);
-
-    } catch (error) {
-        console.error("Error generating content:", error);
-        return NextResponse.json({ error: error.message }, { status: 500 });
+    if (!message) {
+      return NextResponse.json(
+        { error: "Message is required in the request body." },
+        { status: 400 }
+      );
     }
+
+    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+    const result = await model.generateContent(`${systemPrompt} ${message}`);
+
+    let responseText = await result.response.text();
+
+    console.log("Response from AI service:", responseText);
+
+    if (responseText.startsWith("<")) {
+      throw new Error(
+        "Received an HTML response from the AI service, indicating an error."
+      );
+    }
+
+    responseText = responseText.replace(/```json/g, "").replace(/```/g, "");
+
+    // Try parsing the response as JSON
+    let flashcards;
+    try {
+      flashcards = JSON.parse(responseText);
+    } catch (parseError) {
+      console.error("Failed to parse response as JSON:", parseError);
+      return NextResponse.json(
+        {
+          error:
+            "The AI service returned an unexpected format. Please try again.",
+          rawResponse: responseText,
+        },
+        { status: 500 }
+      );
+    }
+
+    flashcards.flashcards = flashcards.flashcards.map((flashcard) => ({
+      ...flashcard,
+      id: uuidv4(),
+    }));
+
+    return NextResponse.json(flashcards.flashcards);
+  } catch (error) {
+    console.error("Error generating content:", error);
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
 }

@@ -24,6 +24,27 @@ const Header = () => {
             <Link href="/sign-up">
               <Button color="inherit">Sign Up</Button>
             </Link>
+
+            <Link
+              href="/sign-in"
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+              }}
+            >
+              <Button color="inherit">Login</Button>
+            </Link>
+            <Link
+              href="/sign-up"
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+              }}
+            >
+              <Button color="inherit">Sign up</Button>
+            </Link>
+
+
           </SignedOut>
           <SignedIn>
             <Link
