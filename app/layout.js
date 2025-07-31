@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs"; 
 import { Analytics } from "@vercel/analytics/react"
+import Header from "../components/Header";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -12,9 +13,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider>
-    <html lang="en">
-      <body className={inter.className} suppressContentEditableWarning suppressHydrationWarning>{children}</body>
+    <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY} >
+    <html lang="en" suppressHydrationWarning>
+      <body className={inter.className} suppressContentEditableWarning suppressHydrationWarning>
+        <Header/>
+        {children}
+        </body>
       <Analytics />
     </html>
     </ClerkProvider>

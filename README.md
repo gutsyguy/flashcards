@@ -77,7 +77,3 @@ A modern, full-stack web application that leverages AI to help users generate, s
 ## 💡 Why This Project?
 
 This project demonstrates my ability to build production-ready, scalable web applications using the latest technologies. It showcases my skills in full-stack development, cloud integration, authentication, payments, and AI—all essential for modern software engineering roles.
-
----
-
-Let me know if you'd like to further tailor this for a specific internship or add a personal statement!

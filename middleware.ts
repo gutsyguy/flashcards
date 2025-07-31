@@ -1,6 +1,12 @@
 import { clerkMiddleware } from "@clerk/nextjs/server";
 
+if (!process.env.CLERK_SECRET_KEY) {
+  throw new Error("Missing Clerk secret key. Add CLERK_SECRET_KEY to your .env.local.");
+}
+
+
 export default clerkMiddleware();
+
 
 export const config = {
   matcher: [
