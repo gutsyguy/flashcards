@@ -66,7 +66,7 @@ export default function Home() {
         }}
       >
         <Typography variant="h2" fontSize={64} fontWeight={400} gutterBottom>
-          Welcome to Flashcard SaaS
+          Welcome to Flashify
         </Typography>
         <Typography variant="h5" gutterBottom>
           {"  "} The easiest way to make flashcards from text
