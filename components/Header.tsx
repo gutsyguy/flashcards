@@ -7,12 +7,9 @@ const Header = () => {
   return (
     <AppBar position="static">
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Link
-          href="/"
-          style={{ textDecoration: "none", color: "inherit" }}
-        >
+        <Link href="/" style={{ textDecoration: "none", color: "inherit" }}>
           <Typography variant="h6" component="div">
-            Flashcard SaaS
+            Flashify
           </Typography>
         </Link>
 
@@ -43,8 +40,6 @@ const Header = () => {
             >
               <Button color="inherit">Sign up</Button>
             </Link>
-
-
           </SignedOut>
           <SignedIn>
             <Link
