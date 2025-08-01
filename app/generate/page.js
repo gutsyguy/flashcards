@@ -22,6 +22,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
+  CircularProgress,
 } from "@mui/material";
 // import Flashcards from "../../components/Flashcards";
 import Flashcards from "../../components/Flashcards";
@@ -33,19 +34,37 @@ const Generate = () => {
   const [text, setText] = useState("");
   const [name, setName] = useState("");
   const [open, setOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async () => {
-    fetch("api/generate", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ message: text }),
-    })
-      .then((res) => res.json())
-      .then((data) => setFlashcards(data))
-      .catch((error) => console.error("Error generating flashcards:", error));
+    if (!text.trim()) {
+      alert("Please enter some text to generate flashcards");
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const response = await fetch("api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message: text }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setFlashcards(data);
+    } catch (error) {
+      console.error("Error generating flashcards:", error);
+      alert("Failed to generate flashcards. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleCardClick = (id) => {
@@ -134,8 +153,10 @@ const Generate = () => {
             color="primary"
             onClick={handleSubmit}
             fullWidth
+            disabled={isLoading}
+            startIcon={isLoading ? <CircularProgress size={20} color="inherit" /> : null}
           >
-            Submit
+            {isLoading ? "Generating..." : "Generate"}
           </Button>
         </Paper>
       </Box>
