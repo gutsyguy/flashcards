@@ -1,6 +1,6 @@
 # Flashcard SaaS
 
-A modern, full-stack web application that leverages AI to help users generate, store, and study flashcards from any text. Built with Next.js, Firebase, Clerk authentication, Stripe payments, and Google Generative AI.
+A modern, full-stack web application that leverages AI to help users generate, store, and study flashcards from any text. Built with Next.js, Firebase, Clerk authentication, and Google Generative AI.
 
 ## 🚀 Features
 
@@ -15,10 +15,7 @@ A modern, full-stack web application that leverages AI to help users generate, s
 
 - **Interactive Study Experience:**  
   Flip through flashcards, track your progress, and focus on key concepts.
-
-- **SaaS Subscription Model:**  
-  Integrated Stripe payments for Basic and Pro plans, demonstrating real-world monetization and checkout flows.
-
+  
 - **Responsive UI:**  
   Built with React and Material UI for a seamless experience on any device.
 
