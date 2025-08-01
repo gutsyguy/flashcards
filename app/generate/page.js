@@ -23,6 +23,7 @@ import {
   DialogContentText,
   DialogActions,
 } from "@mui/material";
+// import Flashcards from "../../components/Flashcards";
 import Flashcards from "../../components/Flashcards";
 
 const Generate = () => {

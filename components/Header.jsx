@@ -1,9 +1,11 @@
 import { SignedIn, SignedOut } from "@clerk/nextjs";
-// import Link from "next/link";
 import { AppBar, Button, Link, Toolbar, Typography } from "@mui/material";
 import React from "react";
+import { UserButton } from "@clerk/nextjs";
+
 
 const Header = () => {
+
   return (
     <AppBar position="static">
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -15,12 +17,12 @@ const Header = () => {
 
         <div style={{ display: "flex", gap: "8px" }}>
           <SignedOut>
-            <Link href="/sign-in">
+            {/* <Link href="/sign-in">
               <Button color="inherit">Login</Button>
             </Link>
             <Link href="/sign-up">
               <Button color="inherit">Sign Up</Button>
-            </Link>
+            </Link> */}
 
             <Link
               href="/sign-in"
@@ -51,6 +53,9 @@ const Header = () => {
             >
               <Button color="inherit">Generate</Button>
             </Link>
+
+
+
             <Link
               href="/flashcards"
               style={{
@@ -60,7 +65,10 @@ const Header = () => {
             >
               <Button color="inherit">View</Button>
             </Link>
-          </SignedIn>
+
+            <UserButton afterSignOutUrl="/" />
+
+                      </SignedIn>
         </div>
       </Toolbar>
     </AppBar>

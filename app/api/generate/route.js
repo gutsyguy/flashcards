@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 const systemPrompt = `You are a flash-card creator, Your job is to generate concise and effective flashcards based on a given topic or content. Follow these rules:
 
 1. Create concise questions for the front of the flashcard.
-2. Provide accurate and informative answers for the back of the flashcards.
+2. Provide concise, accurate and informative answers for the back of the flashcards.
 3. Ensure each flashcard focuses on a single concept or piece of information.
 4. Use simple and clear language to make the flashcards easy to understand.
 5. Include a variety of question types such as definitions, examples, comparisons, and applications.
@@ -55,7 +55,6 @@ export async function POST(req) {
 
     responseText = responseText.replace(/```json/g, "").replace(/```/g, "");
 
-    // Try parsing the response as JSON
     let flashcards;
     try {
       flashcards = JSON.parse(responseText);

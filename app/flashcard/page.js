@@ -3,6 +3,7 @@ import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 // import Flashcard from "../../components/Flashcards";
+// import Flashcards from "../../components/Flashcards";
 import Flashcards from "../../components/Flashcards";
 import { db } from "../../firebase";
 import { useSearchParams } from "next/navigation";

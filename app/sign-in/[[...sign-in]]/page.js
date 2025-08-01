@@ -19,7 +19,6 @@ const SignUpPage = () => {
         alignItems="center"
         justifyContent="center"
       >
-        <Typography variant="h4">Sign In</Typography>
         <SignIn />
       </Box>
     </Container>

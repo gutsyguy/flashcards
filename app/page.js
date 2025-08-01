@@ -72,7 +72,12 @@ export default function Home() {
           {"  "} The easiest way to make flashcards from text
         </Typography>
         <Link href="/generate">
-          <Button size="large" variant="contained" color="primary">
+          <Button
+            size="large"
+            style={{ marginTop: "15px" }}
+            variant="contained"
+            color="primary"
+          >
             Get Started
           </Button>
         </Link>

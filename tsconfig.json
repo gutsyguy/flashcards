@@ -27,7 +27,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "components/Flashcards.jsx", "components/Header.jsx", "app/sign-out/[[...sign-out]]/page.js"  ],
   "exclude": [
     "node_modules"
   ]
