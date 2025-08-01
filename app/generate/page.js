@@ -5,7 +5,7 @@ import { useUser } from "@clerk/nextjs";
 import { db } from "../../firebase";
 import { collection, getDoc, doc, writeBatch } from "firebase/firestore";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Box,
@@ -28,7 +28,7 @@ import {
 import Flashcards from "../../components/Flashcards";
 
 const Generate = () => {
-  const { user } = useUser();
+  const { isLoaded, isSignedIn, user } = useUser();
   const [flashcards, setFlashcards] = useState([]);
   const [flippedFlashcards, setFlippedFlashcards] = useState([]);
   const [text, setText] = useState("");
@@ -36,6 +36,12 @@ const Generate = () => {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    if (isLoaded && !isSignedIn) {
+      router.push('/sign-up')
+    }
+  }, [isLoaded, isSignedIn, router]);
 
   const handleSubmit = async () => {
     if (!text.trim()) {
@@ -124,6 +130,14 @@ const Generate = () => {
     handleClose();
     router.push("/flashcards");
   };
+
+  if (!isLoaded) {
+    return <></>
+  }
+
+  if (!isSignedIn) {
+    return <></>
+  }
 
   return (
     <Container maxWidth="md">

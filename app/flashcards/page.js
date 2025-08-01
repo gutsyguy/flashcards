@@ -30,7 +30,17 @@ const Flashcards = () => {
         GetFlashcards()
     }, [user])
 
-    if (!isLoaded || !isSignedIn) {
+    useEffect(() => {
+        if (isLoaded && !isSignedIn) {
+            router.push('/sign-up')
+        }
+    }, [isLoaded, isSignedIn, router])
+
+    if (!isLoaded) {
+        return <></>
+    }
+
+    if (!isSignedIn) {
         return <></>
     }
 
